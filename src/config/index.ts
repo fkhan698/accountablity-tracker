@@ -1,13 +1,39 @@
-import dotenv from "dotenv";
-dotenv.config();
+import dotenv from 'dotenv'
 
-const config = {
-  mongo: {
-    url: process.env.MONGO_URL || "mongodb://127.0.0.1:27017/test"
+const environment = process.env.NODE_ENV
+
+if (environment !== 'production') {
+  dotenv.config({ path: `${__dirname}/../.env` })
+}
+
+const developmentConfig = {
+  db: {
+    uri: process.env.DB_URI || 'mongodb://127.0.0.1:27017/test',
   },
   server: {
-    port: process.env.SERVER_PORT? Number(process.env.SERVER_PORT): 1337
-  }
-};
+    host: process.env.HOST || 'localhost',
+    port: process.env.PORT || 8000,
+  },
+  jwt: {
+    privateKey: process.env.JWT_PRIVATE_KEY,
+    publicKey: process.env.JWT_PUBLIC_KEY,
+  },
+}
 
-export default config;
+const productionConfig = {
+  db: {
+    uri: process.env.DB_URI || 'mongodb://127.0.0.1:27017/test',
+  },
+  server: {
+    host: process.env.HOST || 'localhost',
+    port: process.env.PORT || 8000,
+  },
+  jwt: {
+    privateKey: process.env.JWT_PRIVATE_KEY,
+    publicKey: process.env.JWT_PUBLIC_KEY,
+  },
+}
+
+const config = (environment === 'production') ? productionConfig : developmentConfig
+
+export default config
