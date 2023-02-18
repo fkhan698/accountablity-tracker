@@ -1,19 +1,18 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Schema } from 'mongoose'
+import { IUser } from './IUser'
 
-export interface IUser {
-  name: string;
-  email: string;
-}
-
-export interface IUserModel extends IUser, Document {}
-
-const UserSchema = new Schema(
-  {
-    name: { type: String, required: true },
-    email: { type: String, required: true }
+const userSchema = new Schema<IUser>({
+  email: {
+    type: String,
+    lowercase: true,
+    required: [true, "can't be blank"],
+    match: [/\S+@\S+\.\S+/, 'is invalid'],
+    index: true,
   },
-  {
-    versionKey: true
-  }
-);
-export default mongoose.model<IUserModel>("User", UserSchema);
+  password: {
+    type: String,
+    required: [true, "can't be blank"],
+  },
+})
+
+export default mongoose.model('User', userSchema, 'users')
