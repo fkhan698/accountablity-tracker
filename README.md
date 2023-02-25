@@ -1,10 +1,10 @@
-Goal Tracker Web App
+The Goal Punisher
 ====================
 
 Overview
 --------
 
-This is a web application that allows users to set and track their goals, and receive reminders to work on them. The app provides a positive and supportive environment for users to achieve their goals, with motivational messages and rewards to keep them motivated.
+This is a web application that allows users to set and track their goals, and receive reminders to work on them. The app punishes the user for not achieving the goal by sending an email to friends/family/colleagues, creating a negative motivation to complete their goals on time. 
 
 Installation
 ------------
@@ -12,19 +12,17 @@ Installation
 To run this app on your local machine, follow these steps:
 
 1.  Clone the repository to your local machine.
-2.  Install any required dependencies using npm or yarn.
-3.  Start the server using the command `npm start` or `yarn start`.
-4.  Open a web browser and navigate to `http://localhost:3000` to access the app.
+2.  Install any required dependencies using npm.
+3.  Start the server using the command `npm start`.
+4.  Open a web browser and navigate to `http://localhost:8000` to access the app.
 
 Features
 --------
 
 -   User account creation: Users can create an account to track their goals.
--   Goal setting: Users can set specific goals with a target completion date, along with sub-tasks and milestones if needed.
--   Progress tracking: Users can track their progress towards their goals, using metrics such as percentage completed or number of tasks completed.
+-   Goal setting: Users can set specific goals with a target completion date.
 -   Reminder notifications: Users receive regular reminders to work on their goals, either through email, push notifications, or text messages.
--   Rewards and motivation: Users can earn virtual badges, points, or other forms of recognition for achieving their goals.
--   Social sharing: Users can share their progress and achievements with friends and family on social media.
+-   Punishment: System can send email to list of friends/family/colleagues of User when goal is not met.
 
 Contributing
 ------------
