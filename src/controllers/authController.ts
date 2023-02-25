@@ -8,12 +8,13 @@ import config from '../config'
 export const login = async (req: Request, res: Response) => {
   const { body } = req
   const { error, value } = validateUser(body)
-  const user: IUser = value
 
   if (error) {
     res.send(error)
     return
   }
+
+  const user: IUser = value
 
   const userAuthenticated = await isUserAuthentic(user)
   if (!userAuthenticated) {
@@ -33,7 +34,7 @@ export const login = async (req: Request, res: Response) => {
     token,
     { httpOnly: true, secure: false, sameSite: true },
   )
-  res.redirect('/todo')
+  res.send('Logged in')
 }
 
 export const logout = async (req: Request, res: Response, next: NextFunction) => {

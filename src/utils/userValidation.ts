@@ -3,6 +3,7 @@ import Joi from 'joi'
 const userSchema = Joi.object({
   email: Joi.string()
     .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
+    .required()
     .messages({
       'string.empty': 'Email cannot be empty',
       'any.required': 'Email is required',
