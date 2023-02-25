@@ -34,7 +34,7 @@ export const login = async (req: Request, res: Response) => {
     token,
     { httpOnly: true, secure: false, sameSite: true },
   )
-  res.redirect('/todo')
+  res.send('Logged in')
 }
 
 export const logout = async (req: Request, res: Response, next: NextFunction) => {
