@@ -1,4 +1,4 @@
-import { Request, Response } from "express"
+import { Request, Response } from 'express'
 
 import {
   getItems,
@@ -6,7 +6,7 @@ import {
   addItem,
   updateItem,
   deleteItem,
-} from "../services/goalService"
+} from '../services/goalService'
 
 export const getGoalItems = async (req: Request, res: Response) => {
   getItems(req, res)
