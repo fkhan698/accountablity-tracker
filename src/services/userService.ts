@@ -1,18 +1,20 @@
-import bcrypt from 'bcrypt'
-import User from '../models/User'
-import { IUser } from '../models/IUser'
+import bcrypt from "bcrypt"
+import User from "../models/User"
+import { IUser } from "../models/IUser"
 
 const addUser = async (user: IUser) => {
   const userFound = await User.findOne({ email: user.email }, { password: 0 })
   if (userFound) {
-    console.log('User already exists')
+    console.log("User already exists")
     return
   }
 
   const userToRegister = user
-  bcrypt.genSalt(10)
+  bcrypt
+    .genSalt(10)
     .then((salt) => {
-      bcrypt.hash(user.password.toString(), salt)
+      bcrypt
+        .hash(user.password.toString(), salt)
         .then((hash) => {
           userToRegister.password = hash
           User.create(userToRegister)
