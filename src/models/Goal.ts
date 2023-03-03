@@ -1,11 +1,5 @@
-import mongoose, { Schema } from "mongoose"
-
-export interface IGoal {
-  title: String
-  description: String
-  deadline: Date
-  completed: Boolean
-}
+import mongoose, { Schema } from 'mongoose'
+import { IGoal } from './IGoal'
 
 const goalSchema = new Schema<IGoal>({
   title: { type: String, required: true },
@@ -14,4 +8,4 @@ const goalSchema = new Schema<IGoal>({
   completed: { type: Boolean, default: false },
 })
 
-export default mongoose.model("Goal", goalSchema, "goals")
+export default mongoose.model('Goal', goalSchema, 'goals')

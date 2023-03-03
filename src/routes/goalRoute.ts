@@ -1,20 +1,24 @@
-import { Router } from "express"
+import { Router } from 'express'
 import {
-  getSingleGoalItem,
-  getGoalItems,
-  addGoalItem,
-  updateGoalItem,
-  deleteGoalItem,
-} from "../controllers/goalController"
-import verifyUser from "../middlewares/authVerification"
+  addGoalHandler,
+  getGoalHandler,
+  getGoalsHandler,
+  updateGoalHandler,
+  deleteGoalHandler,
+} from '../controllers/goalController'
+import verifyUser from '../middlewares/authVerification'
 
 const GoalRouter = Router()
 
-GoalRouter.route("/").all(verifyUser).get(getGoalItems).post(addGoalItem)
+GoalRouter.use(verifyUser)
 
-GoalRouter.route("/get/:goalId").get(getSingleGoalItem)
+GoalRouter.route('/')
+  .get(getGoalsHandler)
+  .post(addGoalHandler)
 
-GoalRouter.route("/update/:goalId").patch(updateGoalItem)
+GoalRouter.route('/:id')
+  .get(getGoalHandler)
+  .put(updateGoalHandler)
+  .delete(deleteGoalHandler)
 
-GoalRouter.route("/delete/:goalId").delete(deleteGoalItem)
 export default GoalRouter
