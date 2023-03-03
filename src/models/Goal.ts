@@ -1,11 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
-
-export interface IGoal {
-  title: String
-  description: String
-  deadline: Date
-  completed: Boolean
-}
+import { IGoal } from './IGoal'
 
 const goalSchema = new Schema<IGoal>({
   title: { type: String, required: true },

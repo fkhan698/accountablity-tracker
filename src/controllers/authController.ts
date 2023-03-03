@@ -36,11 +36,7 @@ export const login = async (req: Request, res: Response) => {
   res.send('Logged in')
 }
 
-export const logout = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+export const logout = async (req: Request, res: Response, next: NextFunction) => {
   next()
   res.send('Logout')
 }
