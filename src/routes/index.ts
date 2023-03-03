@@ -5,7 +5,7 @@ import authRouter from './authRoute'
 
 const router = Router()
 router.use('/auth', authRouter)
-router.use('/goal', goalRouter)
+router.use('/goals', goalRouter)
 router.use('/user', userRouter)
 
 export default router
