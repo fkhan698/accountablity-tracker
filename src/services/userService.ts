@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt'
 import User from '../models/User'
 import { IUser } from '../models/IUser'
 
-const addUser = async (user: IUser) => {
+export const addUser = async (user: IUser) => {
   const userFound = await User.findOne({ email: user.email }, { password: 0 })
   if (userFound) {
     console.log('User already exists')
@@ -34,4 +34,12 @@ const addUser = async (user: IUser) => {
     })
 }
 
-export default addUser
+export const getUser = async (id: string) => {
+  const user: (IUser | null) = await User.findById(id)
+  return user
+}
+
+export const getUsers = async () => {
+  const users: (IUser[] | null) = await User.find()
+  return users
+}

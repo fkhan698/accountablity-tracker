@@ -6,4 +6,5 @@ export interface IGoal {
   description: String
   deadline: Date
   completed: Boolean
+  user: ObjectId
 }
