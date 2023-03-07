@@ -5,6 +5,9 @@ const environment = process.env.NODE_ENV
 if (environment !== 'production') {
   dotenv.config({ path: `${__dirname}/../../.env` })
 }
+// import config from "../config"
+// const { rootEmail, rootPass } = config.emailAuth
+
 const nodemailer = require('nodemailer')
 
 const transporter = nodemailer.createTransport({

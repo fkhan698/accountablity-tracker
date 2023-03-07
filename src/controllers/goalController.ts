@@ -9,7 +9,7 @@ import {
   deleteGoal,
 } from '../services/goalService'
 import validateGoal from '../utils/goalValidation'
-import { sendEmail } from '../services/emailService'
+import sendEmail from '../services/emailService'
 
 export const addGoalHandler = async (req: Request, res: Response) => {
   const { body } = req
@@ -28,13 +28,13 @@ export const addGoalHandler = async (req: Request, res: Response) => {
     res.send("Couldn't create goal")
     return
   }
-  const userEmail = 'fkhan698@hotmail.com'
+  const { recipientEmail } = body
   const deadline = `${body.deadline.toLocaleString('en-US')}`
   const subject = 'Goal has been created'
   const text = `The goal ${body.title} has been created. The deadline for the goal is ${deadline}`
-  sendEmail(userEmail, subject, text)
+  sendEmail(recipientEmail, subject, text)
     .then(() => {
-      console.log(`Email was sent to ${userEmail}`)
+      console.log(`Email was sent to ${recipientEmail}`)
     })
     .catch(() => console.log(error))
   res.json(createdGoal)
@@ -52,6 +52,17 @@ export const getGoalHandler = async (req: Request, res: Response) => {
   if (goal == null) {
     res.send("Goal doesn't exist")
     return
+  }
+  if (!goal.completed && new Date() > goal.deadline) {
+    const { recipientEmail } = goal
+    const { deadline } = goal
+    const subject = 'You suck'
+    const text = `The goal ${goal.title} was failed. The deadline for the goal is ${deadline}`
+    sendEmail(recipientEmail, subject, text)
+      .then(() => {
+        console.log(`Email was sent to ${recipientEmail}`)
+      })
+      .catch((error: any) => console.log(error))
   }
 
   res.json(goal)

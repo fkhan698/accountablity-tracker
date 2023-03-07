@@ -5,5 +5,6 @@ export interface IGoal {
   title: String
   description: String
   deadline: Date
+  recipientEmail: String
   completed: Boolean
 }
