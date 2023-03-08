@@ -35,11 +35,11 @@ export const addUser = async (user: IUser) => {
 }
 
 export const getUser = async (id: string) => {
-  const user: (IUser | null) = await User.findById(id)
+  const user: (IUser | null) = await User.findById(id, { password: 0 })
   return user
 }
 
 export const getUsers = async () => {
-  const users: (IUser[] | null) = await User.find()
+  const users: (IUser[] | null) = await User.find({}, { password: 0 })
   return users
 }

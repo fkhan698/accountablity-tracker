@@ -19,6 +19,7 @@ export const registerUserHandler = async (req: Request, res: Response, next: Nex
   addUser(user)
   res.json(value)
 }
+
 export const getUsersHandler = async (req: Request, res: Response) => {
   const users: (IUser[] | null) = await getUsers()
 
@@ -32,11 +33,14 @@ export const getUsersHandler = async (req: Request, res: Response) => {
 
 export const getUserHandler = async (req: Request, res: Response) => {
   const { id } = req.params
+
   if (!isValidObjectId(id)) {
     res.send('id is not a valid ObjectId')
     return
   }
+
   const user: (IUser | null) = await getUser(id)
+
   if (user == null) {
     res.send('User does not exist')
   }
