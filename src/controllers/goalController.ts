@@ -9,7 +9,6 @@ import {
   deleteGoal,
 } from '../services/goalService'
 import validateGoal from '../utils/goalValidation'
-import { sendEmail } from '../services/emailService'
 
 export const addGoalHandler = async (req: Request, res: Response) => {
   const { body } = req
@@ -22,21 +21,13 @@ export const addGoalHandler = async (req: Request, res: Response) => {
 
   const goal: IGoal = value as IGoal
 
-  const createdGoal: IGoal | null = await addGoal(goal)
+  const createdGoal: (IGoal | null) = await addGoal(goal)
 
   if (createdGoal == null) {
     res.send("Couldn't create goal")
     return
   }
-  const userEmail = 'fkhan698@hotmail.com'
-  const deadline = `${body.deadline.toLocaleString('en-US')}`
-  const subject = 'Goal has been created'
-  const text = `The goal ${body.title} has been created. The deadline for the goal is ${deadline}`
-  sendEmail(userEmail, subject, text)
-    .then(() => {
-      console.log(`Email was sent to ${userEmail}`)
-    })
-    .catch(() => console.log(error))
+
   res.json(createdGoal)
 }
 
@@ -47,7 +38,7 @@ export const getGoalHandler = async (req: Request, res: Response) => {
     return
   }
 
-  const goal: IGoal | null = await getGoal(id)
+  const goal: (IGoal | null) = await getGoal(id)
 
   if (goal == null) {
     res.send("Goal doesn't exist")
@@ -58,7 +49,7 @@ export const getGoalHandler = async (req: Request, res: Response) => {
 }
 
 export const getGoalsHandler = async (req: Request, res: Response) => {
-  const goals: IGoal[] | null = await getGoals()
+  const goals: (IGoal[] | null) = await getGoals()
 
   if (goals == null) {
     res.send("Goals don't exist")
@@ -85,7 +76,7 @@ export const updateGoalHandler = async (req: Request, res: Response) => {
 
   const newGoal: IGoal = value as IGoal
 
-  const goal: IGoal | null = await updateGoal(id, newGoal)
+  const goal: (IGoal | null) = await updateGoal(id, newGoal)
 
   if (goal == null) {
     res.send("Couldn't update goal")
@@ -102,7 +93,7 @@ export const deleteGoalHandler = async (req: Request, res: Response) => {
     return
   }
 
-  const goal: IGoal | null = await deleteGoal(id)
+  const goal: (IGoal | null) = await deleteGoal(id)
 
   if (goal == null) {
     res.send("Couldn't delete goal")
