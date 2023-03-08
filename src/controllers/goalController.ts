@@ -24,7 +24,7 @@ export const addGoalHandler = async (req: Request, res: Response) => {
   const createdGoal: (IGoal | null) = await addGoal(goal)
 
   if (createdGoal == null) {
-    res.send("Couldn't create goal")
+    res.send('Couldn\'t create goal')
     return
   }
 
@@ -41,7 +41,7 @@ export const getGoalHandler = async (req: Request, res: Response) => {
   const goal: (IGoal | null) = await getGoal(id)
 
   if (goal == null) {
-    res.send("Goal doesn't exist")
+    res.send('Goal doesn\'t exist')
     return
   }
 
@@ -52,7 +52,7 @@ export const getGoalsHandler = async (req: Request, res: Response) => {
   const goals: (IGoal[] | null) = await getGoals()
 
   if (goals == null) {
-    res.send("Goals don't exist")
+    res.send('Goals don\'t exist')
     return
   }
 
@@ -79,7 +79,7 @@ export const updateGoalHandler = async (req: Request, res: Response) => {
   const goal: (IGoal | null) = await updateGoal(id, newGoal)
 
   if (goal == null) {
-    res.send("Couldn't update goal")
+    res.send('Couldn\'t update goal')
     return
   }
 
@@ -96,7 +96,7 @@ export const deleteGoalHandler = async (req: Request, res: Response) => {
   const goal: (IGoal | null) = await deleteGoal(id)
 
   if (goal == null) {
-    res.send("Couldn't delete goal")
+    res.send('Couldn\'t delete goal')
     return
   }
 
