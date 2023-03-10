@@ -37,6 +37,11 @@ export const login = async (req: Request, res: Response) => {
 }
 
 export const logout = async (req: Request, res: Response, next: NextFunction) => {
-  next()
-  res.send('Logout')
+  res.cookie('jwt_token', '', {
+    httpOnly: true,
+    secure: false,
+    sameSite: true,
+    expires: new Date(0)
+  })
+  res.send('Logged Out')
 }
