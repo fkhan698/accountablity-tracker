@@ -49,7 +49,8 @@ export const getGoalHandler = async (req: Request, res: Response) => {
 }
 
 export const getGoalsHandler = async (req: Request, res: Response) => {
-  const goals: (IGoal[] | null) = await getGoals()
+  const { userId } = res.locals
+  const goals: (IGoal[] | null) = await getGoals(userId)
 
   if (goals == null) {
     res.send('Goals don\'t exist')

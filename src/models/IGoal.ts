@@ -1,7 +1,8 @@
 import { ObjectId } from 'mongoose'
 
 export interface IGoal {
-  id?: ObjectId
+  id?: ObjectId,
+  userId: ObjectId,
   title: String
   description: String
   deadline: Date

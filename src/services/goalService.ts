@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongoose'
 import Goal from '../models/Goal'
 import { IGoal } from '../models/IGoal'
 
@@ -8,13 +9,13 @@ export const addGoal = async (goal: IGoal) => {
 }
 
 export const getGoal = async (id: string) => {
-  const goal: (IGoal | null) = await Goal.findById(id)
+  const goal: (IGoal | null) = await Goal.findById(id).populate('userId')
 
   return goal
 }
 
-export const getGoals = async () => {
-  const goals: (IGoal[] | null) = await Goal.find()
+export const getGoals = async (userId: ObjectId) => {
+  const goals: (IGoal[] | null) = await Goal.find({ userId }).populate('userId')
 
   return goals
 }
