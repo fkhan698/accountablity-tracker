@@ -9,6 +9,7 @@ import {
   deleteGoal,
 } from '../services/goalService'
 import validateGoal from '../utils/goalValidation'
+
 import sendEmail from '../services/emailService'
 
 export const addGoalHandler = async (req: Request, res: Response) => {
@@ -22,12 +23,13 @@ export const addGoalHandler = async (req: Request, res: Response) => {
 
   const goal: IGoal = value as IGoal
 
-  const createdGoal: IGoal | null = await addGoal(goal)
+  const createdGoal: (IGoal | null) = await addGoal(goal)
 
   if (createdGoal == null) {
-    res.send("Couldn't create goal")
+    res.send('Couldn\'t create goal')
     return
   }
+
   const { recipientEmail } = body
   const deadline = `${body.deadline.toLocaleString('en-US')}`
   const subject = 'Goal has been created'
@@ -37,6 +39,7 @@ export const addGoalHandler = async (req: Request, res: Response) => {
       console.log(`Email was sent to ${recipientEmail}`)
     })
     .catch(() => console.log(error))
+
   res.json(createdGoal)
 }
 
@@ -47,10 +50,10 @@ export const getGoalHandler = async (req: Request, res: Response) => {
     return
   }
 
-  const goal: IGoal | null = await getGoal(id)
+  const goal: (IGoal | null) = await getGoal(id)
 
   if (goal == null) {
-    res.send("Goal doesn't exist")
+    res.send('Goal doesn\'t exist')
     return
   }
   if (!goal.completed && new Date() > goal.deadline) {
@@ -69,10 +72,10 @@ export const getGoalHandler = async (req: Request, res: Response) => {
 }
 
 export const getGoalsHandler = async (req: Request, res: Response) => {
-  const goals: IGoal[] | null = await getGoals()
+  const goals: (IGoal[] | null) = await getGoals()
 
   if (goals == null) {
-    res.send("Goals don't exist")
+    res.send('Goals don\'t exist')
     return
   }
 
@@ -96,10 +99,10 @@ export const updateGoalHandler = async (req: Request, res: Response) => {
 
   const newGoal: IGoal = value as IGoal
 
-  const goal: IGoal | null = await updateGoal(id, newGoal)
+  const goal: (IGoal | null) = await updateGoal(id, newGoal)
 
   if (goal == null) {
-    res.send("Couldn't update goal")
+    res.send('Couldn\'t update goal')
     return
   }
 
@@ -113,10 +116,10 @@ export const deleteGoalHandler = async (req: Request, res: Response) => {
     return
   }
 
-  const goal: IGoal | null = await deleteGoal(id)
+  const goal: (IGoal | null) = await deleteGoal(id)
 
   if (goal == null) {
-    res.send("Couldn't delete goal")
+    res.send('Couldn\'t delete goal')
     return
   }
 

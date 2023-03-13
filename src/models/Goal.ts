@@ -7,6 +7,7 @@ const goalSchema = new Schema<IGoal>({
   deadline: { type: Date, required: true },
   recipientEmail: { type: String, required: true },
   completed: { type: Boolean, default: false },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 })
 
 export default mongoose.model('Goal', goalSchema, 'goals')

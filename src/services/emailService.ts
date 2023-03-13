@@ -1,14 +1,10 @@
-import dotenv from 'dotenv'
 
-// const environment = process.env.NODE_ENV
-
-// if (environment !== 'production') {
-//   dotenv.config({ path: `${__dirname}/../../.env` })
-// }
  import config from "../config"
 const { rootEmail, rootPass } = config.emailAuth
 
 const nodemailer = require('nodemailer')
+import nodemailer from 'nodemailer'
+
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
@@ -19,6 +15,7 @@ const transporter = nodemailer.createTransport({
     pass: rootPass,
   },
 })
+
 const sendEmail = (to: any, subject: any, text: any) => {
   const mailOptions = {
     to,
@@ -27,4 +24,5 @@ const sendEmail = (to: any, subject: any, text: any) => {
   }
   return transporter.sendMail(mailOptions)
 }
+
 export default sendEmail

@@ -7,4 +7,5 @@ export interface IGoal {
   deadline: Date
   recipientEmail: String
   completed: Boolean
+  user: ObjectId
 }
