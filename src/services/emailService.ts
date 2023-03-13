@@ -1,12 +1,18 @@
+
+ import config from "../config"
+const { rootEmail, rootPass } = config.emailAuth
+
+const nodemailer = require('nodemailer')
 import nodemailer from 'nodemailer'
+
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
   port: 587,
   secure: false,
   auth: {
-    user: process.env.ROOT_EMAIL,
-    pass: process.env.EMAIL_PASSWORD,
+    user: rootEmail,
+    pass: rootPass,
   },
 })
 
