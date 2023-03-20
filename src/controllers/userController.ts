@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from 'express'
 import { isValidObjectId } from 'mongoose'
 import { addUser, getUser, getUsers } from '../services/userService'
-import validateUser from '../utils/userValidation'
+import validateCredentials from '../utils/credentialsValidation'
 import { IUser } from '../models/IUser'
 
 export const registerUserHandler = async (req: Request, res: Response, next: NextFunction) => {
   const { body } = req
-  const { error, value } = validateUser(body)
+  const { error, value } = validateCredentials(body)
 
   if (error) {
     console.log(error)

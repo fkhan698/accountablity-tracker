@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-const userSchema = Joi.object({
+const credentialsSchema = Joi.object({
   email: Joi.string()
     .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
     .required()
@@ -24,8 +24,8 @@ const userSchema = Joi.object({
     'any.required': 'User is required',
   })
 
-const validateUser = (user: any) => {
-  return userSchema.validate(user)
+const validateCredentials = (user: any) => {
+  return credentialsSchema.validate(user)
 }
 
-export default validateUser
+export default validateCredentials
