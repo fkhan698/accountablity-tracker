@@ -1,6 +1,7 @@
 import Joi from 'joi'
+import { IGoal } from '../models/IGoal'
 
-const goalSchema = Joi.object({
+const goalSchema = Joi.object<IGoal>({
   title: Joi.string().required().messages({
     'string.empty': 'Title cannot be empty',
     'any.required': 'Title is required',
@@ -26,7 +27,7 @@ const goalSchema = Joi.object({
     'any.required': 'Goal is required',
   })
 
-const goalPATCHSchema = Joi.object({
+const goalPATCHSchema = Joi.object<IGoal>({
   title: Joi.string(),
   description: Joi.string(),
   deadline: Joi.date(),
