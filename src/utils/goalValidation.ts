@@ -26,7 +26,21 @@ const goalSchema = Joi.object({
     'any.required': 'Goal is required',
   })
 
-const validateGoal = (goal: any) => {
+const goalPATCHSchema = Joi.object({
+  title: Joi.string(),
+  description: Joi.string(),
+  deadline: Joi.date(),
+  recipientEmail: Joi.string(),
+  completed: Joi.boolean(),
+})
+  .required()
+  .options({ stripUnknown: true })
+  .min(1)
+
+const validateGoal = (goal: any, method: string) => {
+  if (method === 'PATCH') {
+    return goalPATCHSchema.validate(goal)
+  }
   return goalSchema.validate(goal)
 }
 

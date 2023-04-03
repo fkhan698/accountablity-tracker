@@ -12,7 +12,7 @@ import validateGoal from '../utils/goalValidation'
 
 export const addGoalHandler = async (req: Request, res: Response) => {
   const { body } = req
-  const { error, value } = validateGoal(body)
+  const { error, value } = validateGoal(body, req.method)
 
   const { userId } = req.params
 
@@ -80,7 +80,7 @@ export const updateGoalHandler = async (req: Request, res: Response) => {
   }
 
   const { body } = req
-  const { error, value } = validateGoal(body)
+  const { error, value } = validateGoal(body, req.method)
 
   if (error) {
     res.send(error.message)
