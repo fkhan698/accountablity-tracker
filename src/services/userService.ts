@@ -35,7 +35,7 @@ export const addUser = async (user: IUser) => {
 }
 
 export const getUser = async (id: string) => {
-  const user: (IUser | null) = await User.findById(id, { password: 0 })
+  const user: (IUser | null) = await User.findById(id, { password: 0 }).populate('goals')
   return user
 }
 

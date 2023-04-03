@@ -13,6 +13,11 @@ const userSchema = new Schema<IUser>({
     type: String,
     required: [true, "can't be blank"],
   },
+  goals: {
+    type: [Schema.Types.ObjectId],
+    ref: 'Goal',
+    default: [],
+  },
 })
 
 export default mongoose.model('User', userSchema, 'users')

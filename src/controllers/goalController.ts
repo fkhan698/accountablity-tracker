@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { isValidObjectId } from 'mongoose'
+import { isValidObjectId, Types } from 'mongoose'
 import { IGoal } from '../models/IGoal'
 import {
   addGoal,
@@ -14,14 +14,22 @@ export const addGoalHandler = async (req: Request, res: Response) => {
   const { body } = req
   const { error, value } = validateGoal(body)
 
+  const { userId } = req.params
+
+  if (!isValidObjectId(userId)) {
+    res.send('id is not a valid ObjectId')
+    return
+  }
+
   if (error) {
     res.send(error.message)
     return
   }
 
+  value.user = new Types.ObjectId(userId)
   const goal: IGoal = value as IGoal
 
-  const createdGoal: (IGoal | null) = await addGoal(goal)
+  const createdGoal: (IGoal | null) = await addGoal(userId, goal)
 
   if (createdGoal == null) {
     res.send('Couldn\'t create goal')
@@ -32,13 +40,13 @@ export const addGoalHandler = async (req: Request, res: Response) => {
 }
 
 export const getGoalHandler = async (req: Request, res: Response) => {
-  const { id } = req.params
-  if (!isValidObjectId(id)) {
+  const { goalId } = req.params
+  if (!isValidObjectId(goalId)) {
     res.send('id is not a valid ObjectId')
     return
   }
 
-  const goal: (IGoal | null) = await getGoal(id)
+  const goal: (IGoal | null) = await getGoal(goalId)
 
   if (goal == null) {
     res.send('Goal doesn\'t exist')
@@ -49,7 +57,12 @@ export const getGoalHandler = async (req: Request, res: Response) => {
 }
 
 export const getGoalsHandler = async (req: Request, res: Response) => {
-  const goals: (IGoal[] | null) = await getGoals()
+  const { userId } = req.params
+  if (!isValidObjectId(userId)) {
+    res.send('id is not a valid ObjectId')
+    return
+  }
+  const goals: (IGoal[] | null) = await getGoals(userId)
 
   if (goals == null) {
     res.send('Goals don\'t exist')
@@ -60,8 +73,8 @@ export const getGoalsHandler = async (req: Request, res: Response) => {
 }
 
 export const updateGoalHandler = async (req: Request, res: Response) => {
-  const { id } = req.params
-  if (!isValidObjectId(id)) {
+  const { goalId } = req.params
+  if (!isValidObjectId(goalId)) {
     res.send('id is not a valid ObjectId')
     return
   }
@@ -76,7 +89,7 @@ export const updateGoalHandler = async (req: Request, res: Response) => {
 
   const newGoal: IGoal = value as IGoal
 
-  const goal: (IGoal | null) = await updateGoal(id, newGoal)
+  const goal: (IGoal | null) = await updateGoal(goalId, newGoal)
 
   if (goal == null) {
     res.send('Couldn\'t update goal')
@@ -87,13 +100,13 @@ export const updateGoalHandler = async (req: Request, res: Response) => {
 }
 
 export const deleteGoalHandler = async (req: Request, res: Response) => {
-  const { id } = req.params
-  if (!isValidObjectId(id)) {
+  const { goalId } = req.params
+  if (!isValidObjectId(goalId)) {
     res.send('id is not a valid ObjectId')
     return
   }
 
-  const goal: (IGoal | null) = await deleteGoal(id)
+  const goal: (IGoal | null) = await deleteGoal(goalId)
 
   if (goal == null) {
     res.send('Couldn\'t delete goal')

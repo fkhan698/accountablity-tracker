@@ -8,7 +8,7 @@ import {
 } from '../controllers/goalController'
 import verifyUser from '../middlewares/authVerification'
 
-const GoalRouter = Router()
+const GoalRouter = Router({ mergeParams: true })
 
 GoalRouter.use(verifyUser)
 
@@ -16,7 +16,7 @@ GoalRouter.route('/')
   .get(getGoalsHandler)
   .post(addGoalHandler)
 
-GoalRouter.route('/:id')
+GoalRouter.route('/:goalId')
   .get(getGoalHandler)
   .put(updateGoalHandler)
   .delete(deleteGoalHandler)
