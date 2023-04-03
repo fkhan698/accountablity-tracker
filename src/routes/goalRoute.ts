@@ -19,6 +19,7 @@ GoalRouter.route('/')
 GoalRouter.route('/:goalId')
   .get(getGoalHandler)
   .put(updateGoalHandler)
+  .patch(updateGoalHandler)
   .delete(deleteGoalHandler)
 
 export default GoalRouter
