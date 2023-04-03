@@ -32,14 +32,14 @@ export const getUsersHandler = async (req: Request, res: Response) => {
 }
 
 export const getUserHandler = async (req: Request, res: Response) => {
-  const { id } = req.params
+  const { userId } = req.params
 
-  if (!isValidObjectId(id)) {
+  if (!isValidObjectId(userId)) {
     res.send('id is not a valid ObjectId')
     return
   }
 
-  const user: (IUser | null) = await getUser(id)
+  const user: (IUser | null) = await getUser(userId)
 
   if (user == null) {
     res.send('User does not exist')

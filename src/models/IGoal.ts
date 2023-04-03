@@ -1,11 +1,11 @@
-import { ObjectId } from 'mongoose'
+import { Types } from 'mongoose'
 
 export interface IGoal {
-  id?: ObjectId
+  id?: Types.ObjectId
   title: String
   description: String
   deadline: Date
   recipientEmail: String
   completed: Boolean
-  user: ObjectId
+  user: Types.ObjectId
 }
