@@ -1,8 +1,10 @@
 import { Router } from 'express'
 import { registerUserHandler, getUserHandler, getUsersHandler } from '../controllers/userController'
+import verifyUser from '../middlewares/authVerification'
 import goalRouter from './goalRoute'
 
 const userRouter = Router()
+
 
 userRouter.route('/')
   .post(registerUserHandler)
