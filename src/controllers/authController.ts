@@ -52,7 +52,8 @@ export const login = async (req: Request, res: Response) => {
     secure: false,
     sameSite: true,
   })
-  res.send('Logged in')
+  res.json({ message: 'Logged in', token: token });
+  console.log(user.email + " Logged in")
 }
 
 export const logout = async (req: Request, res: Response) => {
